@@ -54,8 +54,23 @@ function get_balance($conn) {
 }
 
 function get_bankoperation($conn) {
-    $sql = "SELECT * FROM bankoperation ORDER BY date_bank_operation DESC";
-    $result = mysqli_query($conn, $sql);
+    // $sql = "SELECT * FROM bankoperation ORDER BY date_bank_operation DESC";
+    $sql_cat = "SELECT  bankoperation.id_bank_operation,
+                        bankoperation.description,
+                        bankoperation.amount,
+                        bankoperation.type_id,
+                        bankoperation.date_bank_operation,
+                        bankoperation.category,
+                        bankoperation.paid_with,
+                        category.id_category,
+                        paidwith.id_paid_with,
+                        category.name as catname,
+                        paidwith.name as paidwithname
+                FROM    bankoperation
+                INNER JOIN category ON bankoperation.category = category.id_category
+                INNER JOIN paidwith ON bankoperation.paid_with = paidwith.id_paid_with
+                ORDER BY date_bank_operation DESC";
+    $result = mysqli_query($conn, $sql_cat);
     $resultCheck = mysqli_num_rows($result);
 
     $date = "";
@@ -70,16 +85,19 @@ function get_bankoperation($conn) {
 
             $description = $row['description'];
             $amount = $row['amount'];
-            $category = $row['category'];
             $paidwith = $row['paid_with'];
             $type_id = $row['type_id'];
+            $id_bank_operation = $row['id_bank_operation'];
+            $category = $row['catname'];
+            $paidwith = $row['paidwithname'];
+
             ?>
 
             <div class="transaction">
                 <img src="../media/<?php echo $type_id ?>.svg" alt="">
                 <div class="trans-txt">
                     <p class="trans-description"><?php echo $description ?></p>
-                    <p class="trans-category"><?php echo $category ?> - <?php echo $paidwith ?></p>
+                    <p class="trans-category"><?php echo utf8_encode($category) ?> - <?php echo utf8_encode($paidwith) ?></p>
                 </div>
                 <p class="trans-amount" name="amount"><?php echo $amount ?> €</p>
             </div> <?php
