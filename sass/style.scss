@@ -1,0 +1,349 @@
+
+@import 'normalize.scss';
+
+$color-green: rgba(34,150,32,1);
+$color-red: rgba(199,0,0,1);
+$color-grey: rgba(85,85,85,1);
+$color-blue: rgba(29,139,219,1);
+$color-light-grey: rgba(246,246,246,1);
+
+
+html {
+    width: 416px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Open Sans", sans-serif;
+}
+
+.main-header {
+    background: linear-gradient(180deg, #1D8BDB 0%, rgba(24, 139, 222, 0.68) 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:0 0 1.5rem 0;
+    * {
+        color:$color-light-grey;
+    }
+}
+
+body {
+    margin:0;
+}
+
+h1 {
+    margin: 16px 0 0 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 56px;
+}
+
+.flex-row {
+    display:flex;
+    flex-direction:row;
+}
+
+.solde {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    margin:0;
+}
+
+.solde-txt {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    margin:0;
+}
+
+main {
+    * {
+        color: $color-grey;
+    }
+}
+
+.transaction {
+    display:flex;
+    align-items: center;
+    margin:0;
+    padding: 0.75rem 1rem;
+    p {
+        margin:0;
+        &::first-letter{
+            text-transform: capitalize;
+        }
+    }
+    border-bottom: 1px solid $color-light-grey;
+}
+
+.trans-txt {
+    width: 100%;
+    padding-left: 0.5rem;
+}
+
+.trans-description {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.trans-category {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.trans-amount {
+    white-space: nowrap;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 32px;
+}
+
+.date {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    padding:0.75rem 0 0.75rem 1rem;
+    background-color: $color-light-grey;
+    margin:0;
+}
+
+.is-up {
+    color: $color-green;
+}
+
+.add-trans {
+    position: fixed;
+    bottom:8%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $color-blue;
+    border-radius: 1rem;
+    text-decoration: none;
+    display: flex;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    box-shadow: none;
+    border: none;
+    p {
+        margin:0;
+        padding-left: 1rem;
+        color: $color-light-grey;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main-nav {
+    position: fixed;
+    bottom:0;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 416px;
+    box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.1);
+    background: $color-light-grey;
+
+}
+
+.nav-bloc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nav-txt {
+    margin:0 0 1rem 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+}
+
+.is-active {
+    color: $color-blue;
+}
+
+.nav-icon {
+    margin-top:0.7rem;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+/* The slider */
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: $color-red;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: $color-green;
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px $color-green;
+}
+
+input:checked + .slider:before {
+-webkit-transform: translateX(26px);
+-ms-transform: translateX(26px);
+transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
+
+.input-type {
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.input-type-txt {
+    padding:0 1rem;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 32px;
+    margin:0;
+}
+
+.red {
+    color:$color-red;
+}
+
+.green {
+    color:$color-green;
+}
+
+.is-bold {
+    font-weight: bold;
+}
+
+.mandatory {
+    display:flex;
+}
+
+.form-title {
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-top:2rem;
+    margin-bottom:1rem;
+}
+
+.mandatory-markup {
+    color:$color-red;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-top:2rem;
+    margin-bottom:1rem;
+}
+
+.entry-form {
+    background: $color-light-grey;
+    border: 0.5px solid #DADADA;
+    box-sizing: border-box;
+    height: 2.5rem;
+    padding:0.5rem;
+}
+
+.trans-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top:2rem;
+}
+
+.btn-invalidate {
+    margin-left: 2rem;
+}
+
+.btn-validate {
+    margin-right: 2rem;
+}
+
+li {
+    list-style-type: none;
+}
+
+.submit-btn {
+    border-radius: 2rem;
+    border:none;
+    width: 56px;
+    height: 56px;
+    padding:0;
+    cursor: pointer;
+    margin-right:2rem;
+}
+
+.paidwith-ul {
+    padding:0;
+    margin:0
+}
+
+li {
+    padding-bottom:1rem;
+}
+
+form {
+    padding-bottom: 2rem;
+}
+
+main {
+    padding-bottom: 8rem;
+}
+
+.no-trans {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
