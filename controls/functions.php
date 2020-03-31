@@ -94,7 +94,7 @@ function get_bankoperation($conn) {
             ?>
 
             <div class="transaction">
-                <img src="../media/<?php echo $type_id ?>.svg" alt="">
+                <img src="media/<?php echo $type_id ?>.svg" alt="" class="xs">
                 <div class="trans-txt">
                     <p class="trans-description"><?php echo $description ?></p>
                     <p class="trans-category"><?php echo utf8_encode($category) ?> - <?php echo utf8_encode($paidwith) ?></p>

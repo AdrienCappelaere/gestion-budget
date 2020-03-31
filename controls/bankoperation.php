@@ -12,7 +12,7 @@
             VALUES ($type_id, $amount, '$date', $category, $paid_with, '$description');";
     
     if (mysqli_query($conn, $sql) === true) {
-        header("Location: ../views/index.php?signup=success");
+        header("Location: ..");
     } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
     }

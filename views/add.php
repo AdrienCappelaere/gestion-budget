@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="../media/favicon.png"  />
 </head>
 
-<body>
+<body class="add">
     <h1>Nouvelle entrée</h1>
     <form action="../controls/bankoperation.php" method="POST">
 
@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="trans-btn">
-            <a href="http://127.0.0.1/budget-lpdwca/views/">
+            <a href="..">
                 <img src="../media/invalidate.svg" alt="" class="btn-invalidate">
             </a>
             <button type="submit" name="submit" class="submit-btn">
