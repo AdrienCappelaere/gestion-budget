@@ -141,14 +141,6 @@ function get_nav() {
     <?php
 }
 
-/*
-if (isset( $_GET['id'] ) && !empty( $_GET['id'] )) {
-    $modify_date_bank_operation = $_GET['id'];
-} else {
-    $modify_date_bank_operation = "";
-}
-*/
-
 function get_form($conn) {
     if (isset( $_GET['id'] ) && !empty( $_GET['id'] )) {
         $modify_date_bank_operation = $_GET['id'];
@@ -209,7 +201,7 @@ function get_form($conn) {
             $date_bank_operation = "";
     }
     ?>
-            <form action="controls/<?php if ($modify_date_bank_operation != 0) {echo "sendmodify.php?id=$modify_date_bank_operation\" method=\"POST\">";} else {echo "bankoperation.php\" method=\"POST\">";}?>
+            <form action="controls/<?php if ($modify_date_bank_operation != 0) {echo "modify_operation.php?id=$modify_date_bank_operation\" method=\"POST\">";} else {echo "create_operation.php\" method=\"POST\">";}?>
                 <div class="form-div">
                     <label for="type_id" class="mandatory">
                         <h2 class="form-title">Type de saisie</h2>

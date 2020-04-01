@@ -16,7 +16,6 @@
     <h1>Nouvelle entrée</h1>
     <?php get_form($conn) ?>
     
-    
     <script src="js/add.js"></script>
 
 </body>

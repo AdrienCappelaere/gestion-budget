@@ -17,8 +17,6 @@ modalContainer.setAttribute('id', 'modal');
 var customBox = document.createElement('div');
 customBox.className = 'custom-box';
 
-
-// Affichage boîte de confirmation
 document.getElementById('delete').addEventListener('click', function() {
     customBox.innerHTML = '<p class="del-box-txt">Voulez-vous vraiment supprimer cette transaction ? <br>Cette action est irréversible.</p>';
     customBox.innerHTML += '<button id="modal-close" class="btn-annuler">Annuler</button>';
@@ -37,7 +35,7 @@ function modalShow() {
     if (document.getElementById('modal-confirm')) {
         document.getElementById('modal-confirm').addEventListener('click', function () {
            console.log('Confirmé !');
-           window.location.href = `../controls/delete.php?id=${id}`;
+           window.location.href = `controls/delete_operation.php?id=${id}`;
            modalClose();
         });
     }

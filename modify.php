@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <script src="js/functions.js"></script>
-
     <title>WiteMoney | Modifier une transaction</title>
     <link rel="icon" type="image/png" href="media/favicon.png"  />
 </head>

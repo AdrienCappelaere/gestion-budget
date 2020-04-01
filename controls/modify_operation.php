@@ -1,6 +1,5 @@
 <?php
     include_once '../controls/functions.php';
-    include_once '../controls/modify_function.php';
 
     $type_id = get_type_id();  
     $amount = get_amount();
@@ -8,7 +7,7 @@
     $category = $_POST['category'];
     $paid_with = $_POST['paid_with'];
     $description = htmlspecialchars($_POST['description'], ENT_QUOTES);
-    $id_bank_operation = $modify_date_bank_operation;
+    $id_bank_operation = $_GET['id'];
 
     $sql = "UPDATE bankoperation
             SET type_id = $type_id,
