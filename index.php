@@ -30,7 +30,11 @@
     </div>
     <?php get_nav(); ?>
 
-    <script src="js/index.js"></script>
-    <script src="js/add.js"></script>
+    <script>
+        set_date();
+        hide_revenu_category();
+        add_green();
+    </script>
+
 </body>
 </html>

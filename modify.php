@@ -16,8 +16,10 @@
     <h1>Modifier la transaction</h1>
     <?php get_form($conn); ?>
 
-    <script src="js/index.js"></script>
-    <script src="js/modify.js"></script>
+    <script>
+        hide_revenu_category();
+        delete_control();
+    </script>
 
 </body>
 </html>

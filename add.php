@@ -16,7 +16,9 @@
     <h1>Nouvelle entrée</h1>
     <?php get_form($conn) ?>
     
-    <script src="js/add.js"></script>
-
+    <script>
+        set_date();
+        hide_revenu_category();
+    </script>
 </body>
 </html>
