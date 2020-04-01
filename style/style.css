@@ -675,16 +675,34 @@ li {
   padding: 0;
   margin: 0;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
 }
 
-.li-paidwith {
+.paidwith-li {
   background-color: #f6f6f6;
-  margin: 0 1rem 0 0;
-  padding: 0.5rem;
+  border: 0.5px solid #DADADA;
+  margin: 0.5rem 1rem 0 0;
+  padding: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+.paidwith-li input {
+  display: none;
+}
+.paidwith-li label {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.is-checked {
+  background-color: #1d8bdb;
+}
+.is-checked label {
+  color: #f6f6f6;
+  font-weight: bold;
 }
 
 li {
@@ -730,11 +748,13 @@ aside {
     display: none;
   }
 }
+/*
 @media (max-width: 720px) {
-  .trans-title {
-    display: none;
-  }
+    .trans-title {
+        display:none;
+    }
 }
+*/
 @media (min-width: 720px) {
   aside {
     display: block;
@@ -742,6 +762,11 @@ aside {
     max-width: 624px;
     border-left: solid #f6f6f6 0.1rem;
     border-right: solid #f6f6f6 0.1rem;
+  }
+
+  .analysis-aside {
+    display: flex;
+    justify-content: center;
   }
 
   main {
@@ -833,6 +858,12 @@ aside {
 .form-div {
   border-bottom: 0.5px solid #DADADA;
   padding-bottom: 0.5rem;
+}
+
+.tri-select {
+  border: none;
+  color: #1d8bdb;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -12,7 +12,6 @@ function get_type() {
     }
 
     var elemsIn = document.getElementsByClassName('2');
-    console.log(elemsIn);
     if (checkBox.checked == true) {
         elemsIn[0].setAttribute('selected', true);
         elemsOut[0].removeAttribute('selected', true);
@@ -116,5 +115,31 @@ function add_green() {
         if (num > 0){
             nbtrans[i].classList.add("is-up");
         }
+    }
+}
+
+function paidwith_selected() {
+    var checkBox = document.getElementsByName("paid_with");
+    var elemsOut = document.getElementsByClassName('paidwith-li');
+    console.log(checkBox);
+    console.log(elemsOut);
+    for (var i=0; i < elemsOut.length; i+=1){
+        if (checkBox[i].checked == true){
+            elemsOut[i].classList.add("is-checked");
+        } else {
+            elemsOut[i].classList.remove("is-checked");
+        }
+    }
+}
+
+function get_tri() {
+    var option = document.getElementsByName("option-tri");
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var param = url.searchParams.get("filtre");
+    for (var i=0; i < option.length; i++) {
+        if (option[i].value == "?filtre="+param) {
+            option[i].setAttribute('selected', true);
+    }
     }
 }

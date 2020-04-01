@@ -348,17 +348,33 @@ li {
     padding:0;
     margin:0;
     display:flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
 }
 
-.li-paidwith {
+.paidwith-li {
     background-color: $color-light-grey;
-    margin:0 1rem 0 0;
-    padding:0.5rem;
+    border: 0.5px solid #DADADA;
+    margin:0.5rem 1rem 0 0;
+    padding:0;
     display:flex;
     align-items: center;
-    // input {display:none; }
+    justify-content: center;
+    input {display:none; }
+    label {
+        text-align: center;
+        padding:0.5rem;
+    }
+}
+
+.is-checked {
+    background-color: $color-blue;
+    label {
+        color: $color-light-grey;
+        font-weight: bold;
+    }
+    
 }
 
 li {
@@ -404,13 +420,13 @@ aside {
       display: none;
     }
 }
-
+/*
 @media (max-width: 720px) {
     .trans-title {
         display:none;
     }
 }
-
+*/
 @media (min-width: 720px){
     aside {
         display: block;
@@ -418,6 +434,10 @@ aside {
         max-width: 624px;
         border-left: solid $color-light-grey 0.1rem;
         border-right: solid $color-light-grey 0.1rem;
+    }
+    .analysis-aside {
+        display:flex;
+        justify-content: center;
     }
     main {
         width: 400px;
@@ -513,4 +533,11 @@ aside {
 .form-div {
     border-bottom:  0.5px solid #DADADA;
     padding-bottom: 0.5rem;
+}
+
+
+.tri-select {
+    border:none;
+    color:$color-blue;
+    font-weight: bold;
 }

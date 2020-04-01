@@ -4,12 +4,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <?php include_once 'controls/header.php';?>
     <title>WiteMoney | Gestion de votre budget</title>
-    <script src="js/functions.js"></script>
-    <link rel="icon" type="image/png" href="media/favicon.png"  />
 </head>
 <body>
     <header class="main-header">
@@ -19,21 +15,29 @@
     </header>
     <div class="m-flex">
         <main>
-            <h2 class="trans-title">Transactions enregistrées</h2>
-            <?php get_bankoperation($conn) ?>
+            <h2 class="trans-title">Transactions par
+                <select name="tri" onchange="location = this.value;" class="tri-select">
+                    <option name="option-tri" value="?filtre=on_date" onclick="get_tri();">date</option>
+                    <option name="option-tri" value="?filtre=on_category" onclick="get_tri();">catégorie</option>
+                </select>
+            </h2>
+            <?php get_bankoperation_type($conn) ?>
         </main>
 
-        <aside>
-            <h2 class="add-home_title">Nouvelle entrée</h1>
-            <?php get_form($conn); ?>
+        <aside class="analysis-aside">
+            <?php get_chart_data($conn) ?>
+            <div class="canvas">
+                <canvas id="myChart"></canvas>
+            </div>
         </aside>
     </div>
     <?php get_nav(); ?>
 
     <script>
-        set_date();
         hide_revenu_category();
         add_green();
+        get_tri();
+        get_chart();
     </script>
 
 </body>

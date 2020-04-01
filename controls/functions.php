@@ -24,9 +24,9 @@ function get_paid_with($conn) {
 
     if ($resultCheck > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            ?>  <li class="li-paidwith">
-                    <input type="radio" id="title_<?php echo utf8_encode($row['id_paid_with']); ?>" name="paid_with" value="<?php echo utf8_encode($row['id_paid_with']); ?>" required class="input-paidwith">
-                    <label for="title_<?php echo utf8_encode($row['id_paid_with']); ?>" value="<?php echo utf8_encode($row['id_paid_with']); ?>"><?php echo utf8_encode($row['name']); ?></label>
+            ?>  <li class="paidwith-li">
+                    <input type="radio" onclick="paidwith_selected();" id="title_<?php echo utf8_encode($row['id_paid_with']); ?>" name="paid_with" value="<?php echo utf8_encode($row['id_paid_with']); ?>" required class="input-paidwith">
+                    <label for="title_<?php echo utf8_encode($row['id_paid_with']); ?>" onclick="paidwith_selected();" value="<?php echo utf8_encode($row['id_paid_with']); ?>"><?php echo utf8_encode($row['name']); ?></label>
                 </li> <?php
 }}}
 
@@ -54,61 +54,6 @@ function get_balance($conn) {
     echo round($sum,2);
 }
 
-function get_bankoperation($conn) {
-
-    $sql_cat = "SELECT  bankoperation.id_bank_operation,
-                        bankoperation.description,
-                        bankoperation.amount,
-                        bankoperation.type_id,
-                        bankoperation.date_bank_operation,
-                        bankoperation.category,
-                        bankoperation.paid_with,
-                        category.id_category,
-                        paidwith.id_paid_with,
-                        category.name as catname,
-                        paidwith.name as paidwithname
-                FROM    bankoperation
-                INNER JOIN category ON bankoperation.category = category.id_category
-                INNER JOIN paidwith ON bankoperation.paid_with = paidwith.id_paid_with
-                ORDER BY date_bank_operation DESC";
-    $result = mysqli_query($conn, $sql_cat);
-    $resultCheck = mysqli_num_rows($result);
-
-    $date = "";
-    if ($resultCheck > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            if($row['date_bank_operation'] !== $date) {
-                $date = $row['date_bank_operation'];
-                setlocale(LC_TIME, "fr_FR", "French");
-                $date_fr = strftime('%d %B %Y', strtotime($date));
-                ?> <p class="date"><?php  echo utf8_encode($date_fr); ?> </p> <?php
-            }
-
-            $description = $row['description'];
-            $amount = $row['amount'];
-            $paidwith = $row['paid_with'];
-            $type_id = $row['type_id'];
-            $id_bank_operation = $row['id_bank_operation'];
-            $category = $row['catname'];
-            $paidwith = $row['paidwithname'];
-
-            ?>
-            <a href="modify.php?id=<?php echo $id_bank_operation ?>">
-            <div class="transaction">
-                <img src="media/<?php echo $type_id ?>.svg" alt="" class="xs">
-                <div class="trans-txt">
-                    <p class="trans-description"><?php echo $description ?></p>
-                    <p class="trans-category"><?php echo utf8_encode($category) ?> - <?php echo utf8_encode($paidwith) ?></p>
-                    <p class="id-bank-operation"><?php echo $id_bank_operation ?></p>
-                </div>
-                <p class="trans-amount" name="amount"><?php echo $amount ?> €</p>
-            </div> </a> <?php
-        }
-    } else {
-        echo "<p class='no-trans'>Vous n'avez pas encore entré de transaction.</p>";
-    }
-}
-    
 function get_nav() {
     ?>
     <nav class="main-nav">
@@ -139,6 +84,35 @@ function get_nav() {
         </div>
     </nav>
     <?php
+}
+
+function get_chart_data($conn) {
+    $sql = "SELECT  SUM(bankoperation.amount) as value_sum,
+                    bankoperation.id_bank_operation,
+                    bankoperation.description,
+                    bankoperation.amount,
+                    bankoperation.type_id as typeid,
+                    bankoperation.date_bank_operation,
+                    bankoperation.category,
+                    bankoperation.paid_with,
+                    category.id_category,
+                    paidwith.id_paid_with,
+                    category.name as catname,
+                    paidwith.name as paidwithname
+        FROM        bankoperation
+        INNER JOIN  category ON bankoperation.category = category.id_category
+        INNER JOIN  paidwith ON bankoperation.paid_with = paidwith.id_paid_with
+        GROUP BY    catname
+        HAVING      typeid = 1";
+        $result = mysqli_query($conn, $sql);
+        $resultCheck = mysqli_num_rows($result);
+
+    if ($resultCheck > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            ?><div><p> <?php echo utf8_encode($row['catname']);?> </p>
+            <p><?php echo round($row['value_sum'],2); ?></p></div><?php
+        }}
+
 }
 
 function get_form($conn) {
@@ -322,7 +296,108 @@ function get_form($conn) {
                     } 
                     }
                 </script>";
+                echo "
+                <script>paidwith_selected();</script>";
+                
             } else {}
 }
 
+function get_bankoperation($conn,$filtre) {
+    if (isset($filtre) && !empty($filtre)) {
+        if ($filtre == 'on_category') {
+            $filtre = 'category';
+        } elseif ($filtre == 'on_date') {
+            $filtre = 'date_bank_operation';
+        }
+    } else {
+        $filtre = 'date_bank_operation';
+    }
+
+    $sql_cat = "SELECT  bankoperation.id_bank_operation,
+                        bankoperation.description,
+                        bankoperation.amount,
+                        bankoperation.type_id,
+                        bankoperation.date_bank_operation,
+                        bankoperation.category,
+                        bankoperation.paid_with,
+                        category.id_category,
+                        paidwith.id_paid_with,
+                        category.name as catname,
+                        paidwith.name as paidwithname
+                FROM    bankoperation
+                INNER JOIN category ON bankoperation.category = category.id_category
+                INNER JOIN paidwith ON bankoperation.paid_with = paidwith.id_paid_with
+                ORDER BY $filtre DESC";
+    $result = mysqli_query($conn, $sql_cat);
+    $resultCheck = mysqli_num_rows($result);
+
+    $category = "";
+    $date = "";
+    if ($resultCheck > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            if ($filtre == 'category') {
+                if($row['catname'] !== $category) {
+                    $category = $row['catname'];
+                    ?> <p class="date"><?php  echo utf8_encode($category); ?> </p> <?php
+                }
+
+            } elseif ($filtre == 'date_bank_operation'){
+                if($row['date_bank_operation'] !== $date) {
+                    $date = $row['date_bank_operation'];
+                    setlocale(LC_TIME, "fr_FR", "French");
+                    $date_fr = strftime('%d %B %Y', strtotime($date));
+                    ?> <p class="date"><?php  echo utf8_encode($date_fr); ?> </p> <?php
+                }
+            }
+
+            if ($filtre == 'category') {
+                $date = $row['date_bank_operation'];
+                setlocale(LC_TIME, "fr_FR", "French");
+                $date_fr = strftime('%d %B %Y', strtotime($date));
+            } elseif ($filtre == 'date_bank_operation'){
+                $category = $row['catname'];
+            }
+
+            $description = $row['description'];
+            $amount = $row['amount'];
+            $paidwith = $row['paid_with'];
+            $type_id = $row['type_id'];
+            $id_bank_operation = $row['id_bank_operation'];
+            $paidwith = $row['paidwithname'];
+
+            ?>
+            <a href="modify.php?id=<?php echo $id_bank_operation ?>">
+            <div class="transaction">
+                <img src="media/<?php echo $type_id ?>.svg" alt="" class="xs">
+                <div class="trans-txt">
+                    <p class="trans-description"><?php echo $description ?></p>
+                    <p class="trans-category">
+                    <?php
+                        if ($filtre == 'category') {
+                            echo utf8_encode($date_fr);
+                        } elseif ($filtre == 'date_bank_operation'){
+                            echo utf8_encode($category);
+                        }
+                    ?>
+                      - <?php echo utf8_encode($paidwith) ?></p>
+                    <p class="id-bank-operation"><?php echo $id_bank_operation ?></p>
+                </div>
+                <p class="trans-amount" name="amount"><?php echo $amount ?> €</p>
+            </div> </a> <?php
+        }
+    } else {
+        echo "<p class='no-trans'>Vous n'avez pas encore entré de transaction.</p>";
+    }
+    
+}
+
+function get_bankoperation_type($conn) {
+    if (isset( $_GET['filtre'] ) && !empty( $_GET['filtre'] )) {
+        $filtre = $_GET['filtre'];
+        call_user_func('get_bankoperation',$conn,$filtre);
+    } else {
+        $filtre= "";
+        get_bankoperation($conn,$filtre);
+    } 
+}
 ?>
