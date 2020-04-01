@@ -37,7 +37,7 @@
                 <p class="mandatory-markup">*</p>
             </label>
             <div class="">
-                <input type="text" class="entry-form" name="description" required>
+                <input type="text" class="entry-form" name="description" required maxlength="30">
             </div>
         </div>
         <div>

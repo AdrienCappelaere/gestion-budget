@@ -360,7 +360,8 @@ body {
 }
 
 h1 {
-  margin: 16px 0 0 0;
+  padding: 16px 0 0 0;
+  margin: 0;
   font-style: normal;
   font-weight: 600;
   font-size: 48px;
@@ -386,8 +387,21 @@ h1 {
   margin: 0;
 }
 
-main * {
+.add-home_title,
+.trans-title {
+  margin: 0;
+  padding-left: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  background-color: white;
+}
+
+* {
   color: #555555;
+}
+
+main {
+  background-color: #f6f6f6;
 }
 
 .transaction {
@@ -395,6 +409,7 @@ main * {
   align-items: center;
   margin: 0;
   padding: 0.75rem 1rem;
+  background-color: white;
   border-bottom: 1px solid #f6f6f6;
 }
 .transaction p {
@@ -572,7 +587,7 @@ input:checked + .slider:before {
 
 .input-type {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -640,6 +655,10 @@ input:checked + .slider:before {
   margin-right: 2rem;
 }
 
+.id-bank-operation {
+  display: none;
+}
+
 li {
   list-style-type: none;
 }
@@ -682,6 +701,11 @@ main {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
 }
 
 aside {
@@ -690,6 +714,11 @@ aside {
 
 @media (max-width: 400px) {
   .xs {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .trans-title {
     display: none;
   }
 }
@@ -724,19 +753,64 @@ aside {
     max-width: 1024px;
   }
 
-  .add-home_title,
-.add-home_form {
+  .add-home_form {
     padding: 0 0 0 1rem;
   }
 }
 @media (min-width: 720px) and (max-width: 800px) {
-  .add-home_title {
-    font-size: 2rem;
-  }
-
   .green {
     padding-right: 1rem;
   }
+}
+.custom-box {
+  border: 2px solid grey;
+  text-align: center;
+  padding: 10px;
+  width: fit-content;
+  background-color: white;
+  margin: auto;
+}
+.custom-box button {
+  margin: 0 1rem;
+  height: 2.5rem;
+  border: none;
+  box-sizing: border-box;
+  color: #f6f6f6;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  background: #1d8bdb;
+  border-radius: 1rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  box-shadow: none;
+}
+.custom-box .btn-confirmer {
+  background: #c70000;
+}
+.custom-box .btn-annuler {
+  background: #1D8BDB;
+}
+
+#modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.del-box-txt {
+  line-height: 2rem;
+}
+
+.add-icon {
+  position: fixed;
+  bottom: 1rem;
+  transform: translateX(-50%);
 }
 
 /*# sourceMappingURL=style.css.map */

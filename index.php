@@ -15,15 +15,16 @@
     <header class="main-header">
         <h1 class="main-title">Bank Money</h1>
         <p class="solde"><?php get_balance($conn); ?> €</p>
-        <p class="solde-txt">Solde</p>
+        <p class="solde-txt">Solde actuel</p>
     </header>
     <div class="m-flex">
         <main>
+            <h2 class="trans-title">Transactions enregistrées</h2>
             <?php get_bankoperation($conn) ?>
         </main>
 
         <aside>
-            <h1 class="add-home_title">Nouvelle entrée</h1>
+            <h2 class="add-home_title">Nouvelle entrée</h1>
             <form action="controls/bankoperation.php" method="POST" class="add-home_form">
 
                 <div>
@@ -47,7 +48,7 @@
                         <p class="mandatory-markup">*</p>
                     </label>
                     <div class="">
-                        <input type="text" class="entry-form" name="description" required>
+                        <input type="text" class="entry-form" name="description" required maxlength="30">
                     </div>
                 </div>
                 <div>
@@ -102,12 +103,14 @@
         </aside>
     </div>
    
+    <!--
     <a href="views/add.php" class="add-link">
         <button class="add-trans">
             <img src="media/add.svg" alt="">
             <p>Ajouter une entrée</p>
         </button>
     </a>
+    -->
     <nav class="main-nav">
         <div class="nav-bloc">
             <img src="media/account.svg" alt="" class="nav-icon is-active">
@@ -118,8 +121,10 @@
             <p class="nav-txt">Analyses</p>
         </div>
         <div class="nav-bloc">
-            <img src="media/virement.svg" alt="" class="nav-icon">
-            <p class="nav-txt">Virement</p>
+            <a href="views/add.php">
+                <img src="media/addnew.svg" alt="" class="add-icon">
+            </a>
+            
         </div>
         <div class="nav-bloc">
             <img src="media/alertes.svg" alt="" class="nav-icon">

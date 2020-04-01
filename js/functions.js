@@ -17,9 +17,18 @@ function get_type() {
     }
 
     var elemsIn = document.getElementsByClassName('2');
+    console.log(elemsIn);
+    if (checkBox.checked == true) {
+        elemsIn[0].setAttribute('selected', true);
+        elemsOut[0].removeAttribute('selected', true);
+    } else {
+        elemsOut[0].setAttribute('selected', true);
+        elemsIn[0].removeAttribute('selected', true);
+    }
     for (var i=0; i < elemsIn.length; i+=1){
         if (checkBox.checked == true){
             elemsIn[i].style.display = "block";
+
         } else {
             elemsIn[i].style.display = "none";
         }

@@ -14,7 +14,7 @@ function get_category($conn) {
 
     if ($resultCheck > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            ?> <option value="<?php echo utf8_encode($row['id_category']); ?>" class="<?php echo utf8_encode($row['type_id']); ?>" id=""><?php echo utf8_encode($row['name']); ?></option> <?php
+            ?> <option value="<?php echo utf8_encode($row['id_category']); ?>" name="select" class="<?php echo utf8_encode($row['type_id']); ?>" id=""><?php echo utf8_encode($row['name']); ?></option> <?php
 }}}
 
 function get_paid_with($conn) {
@@ -47,14 +47,15 @@ function get_amount() {
 }
 
 function get_balance($conn) {
-    $result = mysqli_query($conn, 'SELECT SUM(bankoperation.amount) AS value_sum FROM bankoperation'); 
+    $sql = 'SELECT SUM(bankoperation.amount) AS value_sum FROM bankoperation';
+    $result = mysqli_query($conn, $sql); 
     $row = mysqli_fetch_assoc($result); 
     $sum = $row['value_sum'];
     echo round($sum,2);
 }
 
 function get_bankoperation($conn) {
-    // $sql = "SELECT * FROM bankoperation ORDER BY date_bank_operation DESC";
+
     $sql_cat = "SELECT  bankoperation.id_bank_operation,
                         bankoperation.description,
                         bankoperation.amount,
@@ -80,7 +81,7 @@ function get_bankoperation($conn) {
                 $date = $row['date_bank_operation'];
                 setlocale(LC_TIME, "fr_FR", "French");
                 $date_fr = strftime('%d %B %Y', strtotime($date));
-                ?> <p class="date"><?php  echo $date_fr; ?> </p> <?php
+                ?> <p class="date"><?php  echo utf8_encode($date_fr); ?> </p> <?php
             }
 
             $description = $row['description'];
@@ -92,15 +93,16 @@ function get_bankoperation($conn) {
             $paidwith = $row['paidwithname'];
 
             ?>
-
+            <a href="views/modify.php?id=<?php echo $id_bank_operation ?>">
             <div class="transaction">
                 <img src="media/<?php echo $type_id ?>.svg" alt="" class="xs">
                 <div class="trans-txt">
                     <p class="trans-description"><?php echo $description ?></p>
                     <p class="trans-category"><?php echo utf8_encode($category) ?> - <?php echo utf8_encode($paidwith) ?></p>
+                    <p class="id-bank-operation"><?php echo $id_bank_operation ?></p>
                 </div>
                 <p class="trans-amount" name="amount"><?php echo $amount ?> €</p>
-            </div> <?php
+            </div> </a> <?php
         }
     } else {
         echo "<p class='no-trans'>Vous n'avez pas encore entré de transaction.</p>";
