@@ -1,6 +1,6 @@
 <?php
-    include_once '../controls/functions.php';
-    include_once '../controls/modify_function.php';
+    include_once 'functions.php';
+    include_once 'modify_function.php';
     
     $id_bank_operation = $modify_date_bank_operation;
 

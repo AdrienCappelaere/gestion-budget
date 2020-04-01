@@ -620,7 +620,7 @@ input:checked + .slider:before {
   font-weight: bold;
   font-size: 1rem;
   line-height: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -629,7 +629,7 @@ input:checked + .slider:before {
   font-weight: bold;
   font-size: 1rem;
   line-height: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -648,11 +648,8 @@ input:checked + .slider:before {
 }
 
 .btn-invalidate {
-  margin-left: 2rem;
-}
-
-.btn-validate {
-  margin-right: 2rem;
+  margin-left: 25%;
+  margin-right: 0.5rem;
 }
 
 .id-bank-operation {
@@ -670,16 +667,32 @@ li {
   height: 56px;
   padding: 0;
   cursor: pointer;
-  margin-right: 2rem;
+  margin-right: 25%;
+  margin-left: 0.5rem;
 }
 
 .paidwith-ul {
   padding: 0;
   margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.li-paidwith {
+  background-color: #f6f6f6;
+  margin: 0 1rem 0 0;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
 }
 
 li {
   padding-bottom: 1rem;
+}
+
+aside {
+  padding-left: 1rem;
 }
 
 form {
@@ -697,7 +710,7 @@ main {
 }
 
 .add {
-  padding-left: 1rem;
+  padding: 0 1rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -811,6 +824,15 @@ aside {
   position: fixed;
   bottom: 1rem;
   transform: translateX(-50%);
+}
+
+.nav-bloc-icon {
+  margin: 0 1rem;
+}
+
+.form-div {
+  border-bottom: 0.5px solid #DADADA;
+  padding-bottom: 0.5rem;
 }
 
 /*# sourceMappingURL=style.css.map */

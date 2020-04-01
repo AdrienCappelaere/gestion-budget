@@ -1,5 +1,5 @@
 <?php
-    include_once '../controls/functions.php';
+    include_once 'functions.php';
 
     $type_id = get_type_id();  
     $amount = get_amount();
