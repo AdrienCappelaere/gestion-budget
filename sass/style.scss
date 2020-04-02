@@ -6,6 +6,9 @@ $color-grey: rgba(85,85,85,1);
 $color-blue: rgba(29,139,219,1);
 $color-light-grey: rgba(246,246,246,1);
 
+* {
+    box-sizing: border-box;
+}
 
 html {
     margin-left: auto;
@@ -61,10 +64,7 @@ h1 {
 
 .add-home_title,
 .trans-title {
-    margin:0;
     padding-left: 1rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
     background-color: white;
 }
 
@@ -72,8 +72,15 @@ h1 {
     color: $color-grey;
 }
 
-main {
+.main-index {
     background-color: $color-light-grey;
+
+}
+
+.scroll {
+    overflow: auto;
+    max-height: calc(100vh - 243px);
+    padding-bottom: 8rem;
 }
 
 .transaction {
@@ -295,6 +302,7 @@ border-radius: 50%;
     line-height: 1.5rem;
     margin-top:1rem;
     margin-bottom:1rem;
+    padding:0;
 }
 
 .mandatory-markup {
@@ -381,22 +389,21 @@ li {
     padding-bottom:1rem;
 }
 
-aside {
-    padding-left: 1rem;
-}
-
 form {
     padding-bottom: 2rem;
 }
 
-main {
-    padding-bottom: 8rem;
-}
 
 .no-trans {
     display:flex;
     justify-content: center;
     align-items: center;
+}
+
+.main-analysis {
+    padding-left:1rem;
+    padding-right:1rem;
+    margin-bottom: 16rem;
 }
 
 .add {
@@ -413,6 +420,19 @@ aside {
     display:none;
 }
 
+h2 {
+    padding:1.5rem 0 1rem 0;
+    margin:0;
+}
+
+.nav-add-icon{
+    position: absolute;
+    right: 15%;
+}
+.nav-bloc-icon{
+    position:relative;
+}
+
 // GESTION DU RESPONSIVE
 
 @media (max-width: 400px) {
@@ -420,43 +440,47 @@ aside {
       display: none;
     }
 }
-/*
-@media (max-width: 720px) {
-    .trans-title {
+
+
+@media (min-width: 720px){
+    .main-nav {
         display:none;
     }
-}
-*/
-@media (min-width: 720px){
+    .m-flex {
+        height:calc(100vh - 168px);
+    }
+
+    .canvas {
+        height:calc((100vh - 510px)/2);
+        width:100%;
+        padding:0 1rem;
+        margin-bottom: 4rem;
+    }
+
     aside {
         display: block;
         width: calc(100% - 400px);
         max-width: 624px;
         border-left: solid $color-light-grey 0.1rem;
         border-right: solid $color-light-grey 0.1rem;
-    }
-    .analysis-aside {
         display:flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
     }
-    main {
+    .main-index {
         width: 400px;
-        padding-bottom: 0;
         border-left: solid $color-light-grey 0.1rem;
     }
-    .add-link,
-    .main-nav {
+    .add-link
+    {
         display:none;
-    }
-    .main-nav {
-        display:none
     }
     .m-flex {
         display:flex;
         margin-left: auto;
         margin-right: auto;
         max-width: 1024px;
-
     }
     
     .add-home_form {
@@ -470,8 +494,14 @@ aside {
         padding-right: 1rem;
     }
 }
-@media (min-width: 1024px) {
-    
+@media (max-width: 719px) {
+    .desktop {
+        display: none;
+    }
+    .canvas{
+        height:40vh;
+    }
+        
 }
 
 .custom-box {
@@ -540,4 +570,48 @@ aside {
     border:none;
     color:$color-blue;
     font-weight: bold;
+}
+
+.canvas {
+    position: relative;
+    width:100%;
+    padding:0 1rem;
+    margin-bottom: 4rem;
+}
+
+.chart-category-ul,
+[class="0-legend"],
+[class="1-legend"] {
+    list-style: none;
+    padding-left: 0;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    padding-top:1rem;
+    margin:0;
+    li {
+        display: flex;
+        padding: 0 5px;
+        // text-align: center;
+        justify-content: center;
+        align-content: center;
+        .chart-legend {
+            width: 10px;
+            height: 10px;
+            margin-top:auto;
+            margin-bottom:auto;
+        }
+        span {
+            border-radius: 5px;
+            display: inline-block;
+            white-space: nowrap;
+            // height: 10px;
+            margin-right: 10px;
+            }
+        }
+    li.hidden {
+        text-decoration: line-through;
+        }
 }

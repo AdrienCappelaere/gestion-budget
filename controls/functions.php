@@ -83,17 +83,22 @@ function get_nav() {
             </a>
         </div>
     </nav>
+    <div class="nav-bloc-icon desktop">
+        <a href="add.php" class="nav-add-icon">
+            <img src="media/addnew.svg" alt="" class="add-icon">
+        </a>
+    </div>
     <?php
 }
 
-function get_chart_data($conn) {
+function get_chart_data_category($conn) {
     $sql = "SELECT  SUM(bankoperation.amount) as value_sum,
                     bankoperation.id_bank_operation,
                     bankoperation.description,
                     bankoperation.amount,
                     bankoperation.type_id as typeid,
                     bankoperation.date_bank_operation,
-                    bankoperation.category,
+                    bankoperation.category, 
                     bankoperation.paid_with,
                     category.id_category,
                     paidwith.id_paid_with,
@@ -109,10 +114,15 @@ function get_chart_data($conn) {
 
     if ($resultCheck > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            ?><div><p> <?php echo utf8_encode($row['catname']);?> </p>
-            <p><?php echo round($row['value_sum'],2); ?></p></div><?php
+            $category[] = utf8_encode($row['catname']);
+            $data[] = round($row['value_sum'],2);?>
+            <?php
         }}
-
+        ?>
+        <script>
+            var $category = <?php echo json_encode($category); ?>;
+            var $data = <?php echo json_encode($data); ?>;
+        </script><?php
 }
 
 function get_form($conn) {
@@ -241,8 +251,8 @@ function get_form($conn) {
                     </div>
                 </div>
                 <div class="trans-btn">
-                    <a href="index.php">
-                        <img src="media/invalidate.svg" alt="" class="btn-invalidate">
+                    <a href="index.php" class="btn-invalidate">
+                        <img src="media/invalidate.svg" alt="" >
                     </a>
                     <?php if ($modify_date_bank_operation != 0) {
                         echo "  <a id=\"delete\">
@@ -392,12 +402,91 @@ function get_bankoperation($conn,$filtre) {
 }
 
 function get_bankoperation_type($conn) {
+    ?>
+    <h2 class="trans-title">Transactions par
+        <select name="tri" onchange="location = this.value;" class="tri-select">
+            <option name="option-tri" value="?filtre=on_date" onclick="get_tri();">date</option>
+            <option name="option-tri" value="?filtre=on_category" onclick="get_tri();">catégorie</option>
+        </select>
+    </h2>
+    <div class="scroll">
+    <?php
     if (isset( $_GET['filtre'] ) && !empty( $_GET['filtre'] )) {
         $filtre = $_GET['filtre'];
         call_user_func('get_bankoperation',$conn,$filtre);
     } else {
         $filtre= "";
         get_bankoperation($conn,$filtre);
-    } 
+    }
+    ?></div><?php
 }
+
+function get_chart_total($conn) {
+    get_chart_data_total($conn) ?>
+    <h2 class="">Tendances par mois</h2>
+    <div class="canvas canvas-total">
+        <canvas id="myChart-total"></canvas>
+        <div id="myChartLegend-total"></div>
+    </div>
+    <?php
+
+}
+
+function get_chart_category($conn) {
+    get_chart_data_category($conn) ?>
+    <h2 class="">Dépenses par catégorie</h2>
+    <div class="canvas canvas-category">
+        <canvas id="myChart-category"></canvas>
+        <div id="myChartLegend-category"></div>
+    </div>
+    <?php
+}
+
+function get_chart_data_total($conn) {
+    $sql = "SELECT  SUM(bankoperation.amount) as value_sum,
+                    MONTHNAME(bankoperation.date_bank_operation) as is_month,
+                    bankoperation.id_bank_operation,
+                    bankoperation.type_id as typeid,
+                    bankoperation.date_bank_operation
+        FROM        bankoperation
+        GROUP BY    MONTH(date_bank_operation)
+        ";
+        $result = mysqli_query($conn, $sql);
+        $resultCheck = mysqli_num_rows($result);
+ 
+    if ($resultCheck > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $month[] = utf8_encode($row['is_month']);
+            $data[] = round($row['value_sum'],2);
+            
+        }}
+    
+    $sql_revenu = "SELECT   SUM(case when bankoperation.amount >= 0 then bankoperation.amount else 0 end) as positive,
+                            SUM(case when bankoperation.amount < 0 then bankoperation.amount else 0 end) as negative,
+                            MONTHNAME(bankoperation.date_bank_operation) as is_month,
+                            bankoperation.type_id as typeid,
+                            bankoperation.date_bank_operation
+                        FROM        bankoperation
+                        GROUP BY    MONTH(date_bank_operation)
+                        ";
+        $result = mysqli_query($conn, $sql_revenu);
+        $resultCheck = mysqli_num_rows($result);
+
+        if ($resultCheck > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $revenu[] = round($row['positive'],2);
+            $depense[] = round($row['negative'],2);
+            
+        }}
+
+    
+        ?>
+        <script>
+            var $date = <?php echo json_encode($month); ?>;
+            var $data_solde = <?php echo json_encode($data); ?>;
+            var $revenu = <?php echo json_encode($revenu); ?>;
+            var $depense = <?php echo json_encode($depense); ?>;
+        </script><?php
+}
+
 ?>

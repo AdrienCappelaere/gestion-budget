@@ -15,24 +15,24 @@
         <p class="solde-txt">Solde actuel</p>
     </header>
     <div class="m-flex">
-        <main>
-            <h2 class="trans-title">Transactions par catégorie</h2>
-            <?php get_bankoperation_type($conn) ?>
-        </main>
 
-        <aside class="analysis-aside">
-            <?php get_chart_data($conn) ?>
-            <div class="canvas">
-                <canvas id="myChart"></canvas>
-                <script>get_chart();</script>
-            </div>
-        </aside>
+    <main class="main-analysis">
+        <?php get_chart_total($conn) ?>
+        <?php get_chart_category($conn) ?>
+    </main>
     </div>
     <?php get_nav(); ?>
 
     <script src="js/index.js"></script>
     <script src="js/add.js"></script>
     
+    <script>
+        hide_revenu_category();
+        add_green();
+        get_tri();
+        get_chart($category,$data);
+        get_chart_total($date,$data_solde,$revenu,$depense);
+    </script>
 
 </body>
 </html>
