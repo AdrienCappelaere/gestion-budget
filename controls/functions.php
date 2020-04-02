@@ -126,7 +126,7 @@ function get_chart_data_category($conn) {
 }
 
 function get_form($conn) {
-    if (isset( $_GET['id'] ) && !empty( $_GET['id'] )) {
+    if (isset( $_GET['id'] ) && !empty( $_GET['id']) && is_numeric($_GET['id'])) {
         $modify_date_bank_operation = $_GET['id'];
     } else {
         $modify_date_bank_operation = "";
@@ -225,7 +225,7 @@ function get_form($conn) {
                         <p class="mandatory-markup">*</p>
                     </label>
                     <div class="">
-                        <input type="date" name="date" class="entry-form" required value="<?php echo utf8_encode($date_bank_operation);?>" id="datefield">
+                        <input type="date" name="date" min="2018-01-01" class="entry-form" required value="<?php echo utf8_encode($date_bank_operation);?>" id="datefield">
                     </div>
                 </div>
                 <div class="form-div">
