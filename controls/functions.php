@@ -216,7 +216,7 @@ function get_form($conn) {
                         <p class="mandatory-markup">*</p>
                     </label>
                     <div class="">
-                        <input type="number" class="entry-form" name="amount" step="0.01" required value="<?php echo utf8_encode(get_amount_positif($amount));?>">
+                        <input type="number" class="entry-form" name="amount" step="0.01" min="0" required value="<?php echo utf8_encode(get_amount_positif($amount));?>">
                     </div>
                 </div>
                 <div class="form-div">
