@@ -1,13 +1,13 @@
 <?php
     include_once '../controls/functions.php';
 
-    $type_id = get_type_id();  
-    $amount = get_amount();
-    $date = $_POST['date'];
-    $category = $_POST['category'];
-    $paid_with = $_POST['paid_with'];
-    $description = htmlspecialchars($_POST['description'], ENT_QUOTES);
-    $id_bank_operation = $_GET['id'];
+    $type_id = mysqli_real_escape_string($conn, get_type_id());  
+    $amount = mysqli_real_escape_string($conn, get_amount());
+    $date = mysqli_real_escape_string($conn, $_POST['date']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+    $paid_with = mysqli_real_escape_string($conn, $_POST['paid_with']);
+    $description = mysqli_real_escape_string($conn, htmlspecialchars($_POST['description'], ENT_QUOTES));
+    $id_bank_operation = mysqli_real_escape_string($conn, $_GET['id']);
 
     $sql = "UPDATE bankoperation
             SET type_id = $type_id,

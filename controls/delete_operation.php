@@ -1,7 +1,7 @@
 <?php
     include_once 'functions.php';;
     
-    $id_bank_operation = $_GET['id'];
+    $id_bank_operation = mysqli_real_escape_string($conn, $_GET['id']);
 
     $sql = "DELETE FROM bankoperation
             WHERE id_bank_operation = $id_bank_operation";
